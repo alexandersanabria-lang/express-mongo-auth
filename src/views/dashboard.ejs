@@ -1,0 +1,20 @@
+<%- include('partials/head') %>
+<%- include('partials/navbar') %>
+
+<div class="container page-container">
+    <div id="loading" class="progress"><div class="indeterminate"></div></div>
+
+    <div id="content" style="display:none">
+        <h4>Bienvenido, <span id="welcome-name"></span></h4>
+        <p class="grey-text">Aquí están tus datos</p>
+
+        <div class="card">
+            <div class="card-content" id="user-details"></div>
+            <div class="card-action">
+                <a href="/profile">Editar mi perfil</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer') %>

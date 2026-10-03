@@ -1,0 +1,53 @@
+body {
+    background: #f5f7f8;
+}
+
+.page-container {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.error-page {
+    margin-top: 80px;
+}
+
+.error-page h2 {
+    font-size: 5rem;
+    margin: 0;
+}
+
+.profile-photo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #cfd8dc;
+}
+
+.avatar-default {
+    font-size: 120px;
+    line-height: 1;
+}
+
+.collection .collection-item i.left {
+    margin-right: 15px;
+}
+
+@media (max-width: 992px) {
+    nav .brand-logo {
+        left: 0;
+        transform: none;
+        font-size: 1.5rem;
+    }
+
+    nav ul a {
+        padding: 0 8px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 600px) {
+    nav .brand-logo {
+        display: none;
+    }
+}

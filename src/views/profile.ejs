@@ -1,0 +1,77 @@
+<%- include('partials/head') %>
+<%- include('partials/navbar') %>
+
+<div class="container page-container">
+    <div id="loading" class="progress"><div class="indeterminate"></div></div>
+
+    <div id="content" class="row" style="display:none">
+        <div class="col s12 m10 offset-m1 l8 offset-l2">
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title center-align">Mi cuenta</span>
+
+                    <div class="center-align" style="margin-bottom: 20px;">
+                        <img id="photo" class="profile-photo" alt="Foto de perfil" style="display:none">
+                        <i id="photo-default" class="material-icons grey-text avatar-default">account_circle</i>
+                        <p class="grey-text">
+                            Rol: <span id="info-roles"></span> · <span id="info-age"></span> años
+                        </p>
+                    </div>
+
+                    <form id="profile-form" novalidate>
+                        <div class="row">
+                            <div class="input-field col s12 m6">
+                                <input id="name" type="text">
+                                <label for="name">Nombre</label>
+                            </div>
+                            <div class="input-field col s12 m6">
+                                <input id="lastName" type="text">
+                                <label for="lastName">Apellido</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="email" type="email" disabled>
+                                <label for="email">Email (no se puede cambiar)</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s12 m6">
+                                <input id="phoneNumber" type="tel">
+                                <label for="phoneNumber">Teléfono</label>
+                            </div>
+                            <div class="input-field col s12 m6">
+                                <input id="birthdate" type="date">
+                                <label for="birthdate" class="active">Fecha de nacimiento</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="address" type="text">
+                                <label for="address">Dirección</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="url_profile" type="url">
+                                <label for="url_profile">URL de la foto de perfil</label>
+                            </div>
+                        </div>
+
+                        <p id="form-error" class="red-text center-align" style="display:none"></p>
+
+                        <div class="center-align">
+                            <button type="submit" id="btn-submit" class="btn teal waves-effect waves-light">Guardar cambios</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer') %>

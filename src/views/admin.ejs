@@ -1,0 +1,39 @@
+<%- include('partials/head') %>
+<%- include('partials/navbar') %>
+
+<div class="container page-container">
+    <h4>Panel de administración</h4>
+    <p class="grey-text">Usuarios registrados: <strong id="total">0</strong></p>
+
+    <div id="loading" class="progress"><div class="indeterminate"></div></div>
+
+    <div id="content" class="card" style="display:none">
+        <div class="card-content" style="overflow-x: auto;">
+            <table class="striped highlight">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Rol</th>
+                        <th>Edad</th>
+                        <th>Fecha de registro</th>
+                        <th>Detalle</th>
+                    </tr>
+                </thead>
+                <tbody id="users-body"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="user-modal" class="modal">
+    <div class="modal-content">
+        <h5>Información del usuario</h5>
+        <div id="modal-body"></div>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-close btn-flat">Cerrar</a>
+    </div>
+</div>
+
+<%- include('partials/footer') %>
