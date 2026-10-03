@@ -14,6 +14,12 @@ class UserRepository {
         return User.findById(id).populate('roles').exec();
     }
 
+    async updateById(id, data) {
+        return User.findByIdAndUpdate(id, data, { new: true, runValidators: true })
+            .populate('roles')
+            .exec();
+    }
+
     async updatePassword(id, hashedPassword) {
         return User.findByIdAndUpdate(id, { password: hashedPassword }, { new: true }).exec();
     }

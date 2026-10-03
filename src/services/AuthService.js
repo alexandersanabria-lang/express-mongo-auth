@@ -2,9 +2,10 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import userRepository from '../repositories/UserRepository.js';
 import roleRepository from '../repositories/RoleRepository.js';
+import { validatePassword, PASSWORD_MESSAGE } from '../utils/validators.js';
 
 class AuthService {
-    async signUp({ email, password, name, roles = ['user'] }) {
+    async signUp({ email, password, name, lastName, phoneNumber, birthdate, url_profile, address }) {
         const existing = await userRepository.findByEmail(email);
         if (existing) {
             const err = new Error('El email ya se encuentra en uso');
@@ -12,24 +13,37 @@ class AuthService {
             throw err;
         }
 
-        // Lógica para encriptar el password
+        // Validar la contraseña ANTES de encriptarla
+        if (!validatePassword(password)) {
+            const err = new Error(PASSWORD_MESSAGE);
+            err.status = 400;
+            throw err;
+        }
+
         const saltRounds = parseInt(process.env.BCRYPT_SALT_ROUNDS ?? '10', 10);
         const hashed = await bcrypt.hash(password, saltRounds);
 
-        // Asignar los role ids
-        const roleDocs = [];
-        for (const r of roles) {
-            let roleDoc = await roleRepository.findByName(r);
-            if (!roleDoc) roleDoc = await roleRepository.create({ name: r });
-            roleDocs.push(roleDoc._id);
-        }
+        // El registro público SIEMPRE asigna el rol "user"
+        let roleDoc = await roleRepository.findByName('user');
+        if (!roleDoc) roleDoc = await roleRepository.create({ name: 'user' });
 
-        const user = await userRepository.create({ email, password: hashed, name, roles: roleDocs });
+        const user = await userRepository.create({
+            email,
+            password: hashed,
+            name,
+            lastName,
+            phoneNumber,
+            birthdate,
+            url_profile,
+            address,
+            roles: [roleDoc._id]
+        });
 
         return {
             id: user._id,
             email: user.email,
-            name: user.name
+            name: user.name,
+            lastName: user.lastName
         };
     }
 
@@ -48,10 +62,12 @@ class AuthService {
             throw err;
         }
 
+        const roles = user.roles.map(r => r.name);
+
         const token = jwt.sign(
             {
                 sub: user._id,
-                roles: user.roles.map(r => r.name)
+                roles
             },
             process.env.JWT_SECRET,
             {
@@ -59,7 +75,7 @@ class AuthService {
             }
         );
 
-        return { token };
+        return { token, roles };
     }
 }
 
